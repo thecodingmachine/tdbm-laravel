@@ -13,6 +13,7 @@ use Psr\Log\LoggerInterface;
 use TheCodingMachine\TDBM\Commands\GenerateCommand;
 use TheCodingMachine\TDBM\Configuration;
 use TheCodingMachine\TDBM\ConfigurationInterface;
+use TheCodingMachine\TDBM\Laravel\Cache\IlluminateCacheAdapter;
 use TheCodingMachine\TDBM\TDBMService;
 use TheCodingMachine\TDBM\Utils\DefaultNamingStrategy;
 use TheCodingMachine\TDBM\Utils\NamingStrategyInterface;
@@ -36,24 +37,8 @@ class TdbmServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        // Doctrine Cache setup for TDBM
-        $this->app->singleton(Cache::class, function ($app) {
-            // If DEBUG mode is on, let's just use an ArrayCache.
-            if (config('app.debug')) {
-                $driver = new ArrayCache();
-            } else {
-                // If APC is available, let's use APC
-                if (extension_loaded("apcu")) {
-                    $driver = new ApcuCache();
-                } else if (extension_loaded("apc")) {
-                    $driver = new ApcCache();
-                } else {
-                    $driver = new PhpFileCache(sys_get_temp_dir().'/doctrinecache');
-                }
-            }
-            $driver->setNamespace(config('app.key'));
-            return $driver;
-        });
+        // Doctrine Cache setup for TDBM: link to Laravel cache
+        $this->app->bind(Cache::class, IlluminateCacheAdapter::class);
 
         $this->app->bind(NamingStrategyInterface::class, DefaultNamingStrategy::class);
 
@@ -73,5 +58,21 @@ class TdbmServiceProvider extends ServiceProvider
         $this->commands(
             GenerateCommand::class
         );
+    }
+
+    /**
+     * Get the services provided by the provider.
+     *
+     * @return array
+     */
+    public function provides()
+    {
+        return [
+            Cache::class,
+            NamingStrategyInterface::class,
+            ConfigurationInterface::class,
+            Configuration::class,
+            TDBMService::class,
+        ];
     }
 }
