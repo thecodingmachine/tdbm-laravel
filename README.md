@@ -1,6 +1,7 @@
-Laravel TDBM bindings
-=====================
+Laravel and Lumen TDBM bindings
+===============================
 
-TDBM integration package for Laravel.
+TDBM integration package for Laravel and Lumen.
 
-View documentation at https://thecodingmachine.github.io/tdbm/doc/install_laravel.html
+- See [Laravel documentation](https://thecodingmachine.github.io/tdbm/doc/install_laravel.html)
+- See [Lumen documentation](https://thecodingmachine.github.io/tdbm/doc/install_lumen.html)
