@@ -2,12 +2,7 @@
 
 namespace TheCodingMachine\TDBM\Laravel\Providers;
 
-use Doctrine\Common\Cache\ApcCache;
-use Doctrine\Common\Cache\ApcuCache;
-use Doctrine\Common\Cache\ArrayCache;
 use Doctrine\Common\Cache\Cache;
-use Doctrine\Common\Cache\PhpFileCache;
-use Doctrine\DBAL\Connection;
 use Illuminate\Support\ServiceProvider;
 use Psr\Log\LoggerInterface;
 use TheCodingMachine\TDBM\Commands\GenerateCommand;
