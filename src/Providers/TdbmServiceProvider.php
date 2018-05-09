@@ -43,7 +43,9 @@ class TdbmServiceProvider extends ServiceProvider
             $daoNamespace = config('database.tdbm.daoNamespace', 'App\\Daos');
             $beanNamespace = config('database.tdbm.beanNamespace', 'App\\Beans');
 
-            return new Configuration($beanNamespace, $daoNamespace, $app->make('doctrine_dbal_connection'), $app->make(NamingStrategyInterface::class), $app->make(Cache::class), null, $app->make(LoggerInterface::class));
+            $db = $app->make('db');
+
+            return new Configuration($beanNamespace, $daoNamespace, $db->connection()->getDoctrineConnection(), $app->make(NamingStrategyInterface::class), $app->make(Cache::class), null, $app->make(LoggerInterface::class));
         });
 
         $this->app->singleton(TDBMService::class, function ($app) {
