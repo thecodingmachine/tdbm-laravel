@@ -36,5 +36,9 @@
         "branch-alias": {
             "dev-master": "5.0.x-dev"
         }
+    },
+    "require-dev": {
+        "orchestra/testbench": "^3.5.5",
+        "ext-sqlite3": "*"
     }
 }
