@@ -22,7 +22,9 @@ class TdbmServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-
+        $this->publishes([
+            __DIR__.'/../../config/tdbm.php' => config_path('tdbm.php'),
+        ]);
     }
 
     /**
@@ -40,8 +42,8 @@ class TdbmServiceProvider extends ServiceProvider
         $this->app->bind(ConfigurationInterface::class, Configuration::class);
 
         $this->app->singleton(Configuration::class, function ($app) {
-            $daoNamespace = config('database.tdbm.daoNamespace', 'App\\Daos');
-            $beanNamespace = config('database.tdbm.beanNamespace', 'App\\Beans');
+            $daoNamespace = config('tdbm.daoNamespace', 'App\\Daos');
+            $beanNamespace = config('tdbm.beanNamespace', 'App\\Beans');
 
             $db = $app->make('db');
 
@@ -55,8 +57,6 @@ class TdbmServiceProvider extends ServiceProvider
         $this->commands(
             GenerateCommand::class
         );
-
-        $this->mergeConfigFrom(__DIR__.'/../../config/tdbm.php', 'database');
     }
 
     /**
