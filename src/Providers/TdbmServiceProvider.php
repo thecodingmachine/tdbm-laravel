@@ -55,6 +55,8 @@ class TdbmServiceProvider extends ServiceProvider
         $this->commands(
             GenerateCommand::class
         );
+
+        $this->mergeConfigFrom(__DIR__.'/../../config/tdbm.php', 'database');
     }
 
     /**
