@@ -10,8 +10,6 @@ return [
      | TDBM will find the path of the files based on Composer.
      |
      */
-    'tdbm' => [
-        'daoNamespace' => 'App\\Daos',
-        'beanNamespace' => 'App\\Beans',
-    ]
+    'daoNamespace' => 'App\\Daos',
+    'beanNamespace' => 'App\\Beans',
 ];
