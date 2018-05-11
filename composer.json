@@ -38,7 +38,7 @@
         },
         "laravel": {
             "providers": [
-                "TheCodingMachine\\TDBM\\Laravel\\TdbmServiceProvider"
+                "TheCodingMachine\\TDBM\\Laravel\\Providers\\TdbmServiceProvider"
             ]
         }
     },
