@@ -37,8 +37,6 @@ class TdbmServiceProvider extends ServiceProvider
         // Doctrine Cache setup for TDBM: link to Laravel cache
         $this->app->bind(Cache::class, IlluminateCacheAdapter::class);
 
-        $this->app->bind(NamingStrategyInterface::class, DefaultNamingStrategy::class);
-
         $this->app->bind(ConfigurationInterface::class, Configuration::class);
 
         $this->app->singleton(Configuration::class, function ($app) {
@@ -47,7 +45,7 @@ class TdbmServiceProvider extends ServiceProvider
 
             $db = $app->make('db');
 
-            return new Configuration($beanNamespace, $daoNamespace, $db->connection()->getDoctrineConnection(), $app->make(NamingStrategyInterface::class), $app->make(Cache::class), null, $app->make(LoggerInterface::class));
+            return new Configuration($beanNamespace, $daoNamespace, $db->connection()->getDoctrineConnection(), null, $app->make(Cache::class), null, $app->make(LoggerInterface::class));
         });
 
         $this->app->singleton(TDBMService::class, function ($app) {
